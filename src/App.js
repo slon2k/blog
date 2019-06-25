@@ -19,6 +19,7 @@ export default class App extends React.Component {
     }
 
     loadPost = (id) => {
+        console.log(`Loading post with id: ${id}`)
         const {posts} = this.state;
         this.api.getPost(id)
             .then((result) => {
@@ -29,16 +30,14 @@ export default class App extends React.Component {
 
 
     render() {
-        console.log(this.state);
-        const {posts} = this.state;
+        const {posts, postList} = this.state;
         return (
             <Router>
                 <div>
-                    <h2>App</h2>
-                    <Menu posts={this.state.postList}/>
+                    <Menu posts={postList}/>
                     <Switch>
                         <Route exact path={'/'}
-                               render={() => <BlogPage/>}
+                               component={BlogPage}
                         />
                         <Route exact path={'/posts/:id'}
                                render={({match}) =>
