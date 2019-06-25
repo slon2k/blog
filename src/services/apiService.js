@@ -4,12 +4,17 @@ const posts = [
         {id: '3', title: 'Title 3'},
     ]
 
+const delay = (time) => {
+    return new Promise(resolve => setTimeout(resolve, time))
+}
+
 export default class Api {
     async getPosts() {
         return await {posts}
     }
 
-    async getPostDetails(id) {
-        return await {body: `Post body ${id}`}
+    async getPost(id) {
+        await delay(2000);
+        return await {id, title: `Title ${id}`, body: `Post body ${id}`}
     }
 }

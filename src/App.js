@@ -18,8 +18,19 @@ export default class App extends React.Component {
         this.api.getPosts().then(result => this.setState({postList: result.posts}))
     }
 
+    loadPost = (id) => {
+        const {posts} = this.state;
+        this.api.getPost(id)
+            .then((result) => {
+                posts[id] = result;
+                this.setState({posts})
+            })
+    }
+
+
     render() {
         console.log(this.state);
+        const {posts} = this.state;
         return (
             <Router>
                 <div>
@@ -30,7 +41,12 @@ export default class App extends React.Component {
                                render={() => <BlogPage/>}
                         />
                         <Route exact path={'/posts/:id'}
-                               render={({match}) => <PostPage id={match.params.id}/>}
+                               render={({match}) =>
+                                   <PostPage id={match.params.id}
+                                             key={match.params.id}
+                                             loadPost={this.loadPost}
+                                             post={posts[match.params.id]}
+                                   />}
                         />
                     </Switch>
 

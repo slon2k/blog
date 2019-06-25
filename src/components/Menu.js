@@ -2,7 +2,11 @@ import React from 'react'
 import {Link} from "react-router-dom";
 
 const Menu = ({posts}) => {
-    const links = posts.map(post => <li key={post.id}><Link to={`/posts/${post.id}`}>{post.title}</Link></li>)
+    const links = posts.map(post => (
+        <li key={post.id}>
+            <Link to={`/posts/${post.id}`}>{post.title}</Link>
+        </li>)
+    )
 
     return(
         <ul>
